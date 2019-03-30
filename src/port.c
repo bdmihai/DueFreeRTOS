@@ -243,6 +243,7 @@ void vPortSVCHandler( void )
 static void prvPortStartFirstTask( void )
 {
 	__asm volatile(
+					"firstTask:                  \n"
 					" ldr r0, =0xE000ED08 	\n" /* Use the NVIC offset register to locate the stack. */
 					" ldr r0, [r0] 			\n"
 					" ldr r0, [r0] 			\n"
@@ -632,6 +633,8 @@ __attribute__(( weak )) void vPortSetupTimerInterrupt( void )
   sysTickEnabled = 1; // WHG for Arduino
 }
 /*-----------------------------------------------------------*/
+
+const int __attribute__((used)) uxTopUsedPriority = configMAX_PRIORITIES - 1;
 
 #if( configASSERT_DEFINED == 1 )
 
